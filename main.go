@@ -99,6 +99,7 @@ func generateCnfForMultiplication(n, m int, a, b []byte) ([]Clause, int) {
 			// shift
 			productBitsNM[i][j+i] = productBits[i][j]
 		}
+		// pat space as 0
 		for j := 0; j < n+m; j++ {
 			if productBitsNM[i][j] == 0 {
 				t := newVar()
@@ -106,29 +107,9 @@ func generateCnfForMultiplication(n, m int, a, b []byte) ([]Clause, int) {
 				clauses = append(clauses, Clause{-t})
 			}
 		}
-		// pat as 0
-
-		// low
-		/*
-			for k := 0; k < i; k++ {
-				t := newVar()
-				productBitsNM[i][k] = t
-				clauses = append(clauses, Clause{-t})
-			}
-		*/
-
-		// pat as 0
-		// high
-		// for k := n + m - 1; k > m; k-- {
-		// 	t := newVar()
-		// 	productBitsNM[i][k] = t
-		// 	clauses = append(clauses, Clause{-t})
-		// }
 	}
-	// fmt.Println(productBits)
 	fmt.Println(productBitsNM)
 	fmt.Println("")
-	// return clauses, newVar()-1
 
 	// Add the bit products with shift (Step 2: Shifted addition)
 
@@ -181,7 +162,7 @@ func generateCnfForMultiplication(n, m int, a, b []byte) ([]Clause, int) {
 		fmt.Println("psum: ", pSumVars)
 	}
 
-	//TODO 最後のsumvarを返す
+	// this is the number showing a result
 	fmt.Println(pSumVars)
 	return clauses, newVar() - 1
 }
@@ -200,7 +181,6 @@ func clausesToString(clauses []Clause, varCount int) string {
 }
 
 func main() {
-	// Example usage: Generate CNF for 4-bit by 3-bit multiplication
 	a := []byte{0, 1, 1}
 	b := []byte{0, 1, 1}
 	n := len(a)
