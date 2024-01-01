@@ -108,8 +108,8 @@ func generateCnfForMultiplication(n, m int, a, b []byte) ([]Clause, int) {
 			}
 		}
 	}
-	fmt.Println(productBitsNM)
-	fmt.Println("")
+	// fmt.Println(productBitsNM)
+	// fmt.Println("")
 
 	// Add the bit products with shift (Step 2: Shifted addition)
 
@@ -139,9 +139,9 @@ func generateCnfForMultiplication(n, m int, a, b []byte) ([]Clause, int) {
 				allzero[i] = newVar()
 				clauses = append(clauses, Clause{-allzero[i]})
 			}
-			fmt.Println("allzero: ", allzero)
+			// fmt.Println("allzero: ", allzero)
 		}
-		fmt.Println("a", productBitsNM[i])
+		// fmt.Println("a", productBitsNM[i])
 		for j := 0; j < n+m; j++ {
 			a := productBitsNM[i][j]
 			b := 0
@@ -150,12 +150,12 @@ func generateCnfForMultiplication(n, m int, a, b []byte) ([]Clause, int) {
 			} else {
 				b = pSumVars[j]
 			}
-			fmt.Println("b", b)
+			// fmt.Println("b", b)
 			cin := carryVars[j]
 			s := sumVars[j]
 			cout := carryVars[j+1]
 			fullAdder(a, b, cin, s, cout)
-			fmt.Println("s", s)
+			// fmt.Println("s", s)
 
 		}
 		copy(pSumVars, sumVars)
@@ -163,7 +163,7 @@ func generateCnfForMultiplication(n, m int, a, b []byte) ([]Clause, int) {
 	}
 
 	// this is the number showing a result
-	fmt.Println(pSumVars)
+	fmt.Println("result:", pSumVars)
 	return clauses, newVar() - 1
 }
 
